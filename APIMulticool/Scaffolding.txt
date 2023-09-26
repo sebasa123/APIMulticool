@@ -1,0 +1,1 @@
+﻿Scaffold-DbContext -f "SERVER=LAPTOP-0OCE7TFC\SQLEXPRESS;DATABASE=MulticoolDB;INTEGRATED SECURITY=TRUE;User Id=;Password=" Microsoft.EntityframeworkCore.SqlServer -OutputDir Models
