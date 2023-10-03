@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using APIMulticool.Models;
+using APIMulticool.Tools;
+using APIMulticool.ModelsDTO;
 
 namespace APIMulticool.Controllers
 {
@@ -14,10 +16,12 @@ namespace APIMulticool.Controllers
     public class UsuariosController : ControllerBase
     {
         private readonly MulticoolDBContext _context;
+        public Encrypt MyEncrypt { get; set; }
 
         public UsuariosController(MulticoolDBContext context)
         {
             _context = context;
+            MyEncrypt = new Encrypt();
         }
 
         // GET: api/Usuarios
@@ -49,6 +53,53 @@ namespace APIMulticool.Controllers
             return usuario;
         }
 
+        [HttpGet("ValidateUserLogin")]
+        public async Task<ActionResult<Usuario>> ValidateUserLogin(string pNombre, string pContra)
+        {
+            string ContraEncrypt = MyEncrypt.EncriptarEnUnSentido(pContra);
+            var user = await _context.Usuarios.SingleOrDefaultAsync(e =>
+                e.NombreUs == pNombre && e.ContraUs == ContraEncrypt);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return user;
+        }
+
+        // GET: api/Users/GetUserData
+        [HttpGet("GetUserData")]
+        public ActionResult<IEnumerable<UsuarioDTO>> GetUserData(string nombre)
+        {
+            var query = (from u in _context.Usuarios
+                         where u.NombreUs == nombre
+                         select new
+                         {
+                             idusuario = u.Idus,
+                             nombreusuario = u.NombreUs,
+                             contrausuario = u.ContraUs,
+                             tipousuario = u.FktipoUsuario,
+                             estadousuario = u.EstadoUs
+                         }).ToList();
+            List<UsuarioDTO> list = new List<UsuarioDTO>();
+            foreach (var item in query)
+            {
+                UsuarioDTO NewItem = new UsuarioDTO()
+                {
+                    Idus = item.idusuario,
+                    NombreUs = item.nombreusuario,
+                    ContraUs = item.contrausuario,
+                    FktipoUsuario = item.tipousuario,
+                    EstadoUs = item.estadousuario
+                };
+                list.Add(NewItem);
+            }
+            if (list == null)
+            {
+                return NotFound();
+            }
+            return list;
+        }
+
         // PUT: api/Usuarios/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -58,6 +109,25 @@ namespace APIMulticool.Controllers
             {
                 return BadRequest();
             }
+
+            string contra = "";
+            if (usuario.ContraUs.Length <= 60)
+            {
+                contra = MyEncrypt.EncriptarEnUnSentido(usuario.ContraUs);
+            }
+            else
+            {
+                contra = usuario.ContraUs;
+            }
+
+            Usuario UsuarioNuevo = new()
+            {
+                Idus = usuario.Idus,
+                NombreUs = usuario.NombreUs,
+                ContraUs = usuario.ContraUs,
+                FktipoUsuario = usuario.FktipoUsuario,
+                EstadoUs = usuario.EstadoUs
+            };
 
             _context.Entry(usuario).State = EntityState.Modified;
 
