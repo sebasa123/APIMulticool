@@ -56,9 +56,11 @@ namespace APIMulticool.Controllers
         [HttpGet("ValidateUserLogin")]
         public async Task<ActionResult<Usuario>> ValidateUserLogin(string pNombre, string pContra)
         {
-            string ContraEncrypt = MyEncrypt.EncriptarEnUnSentido(pContra);
+            //string ContraEncrypt = MyEncrypt.EncriptarEnUnSentido(pContra);
+            //var user = await _context.Usuarios.SingleOrDefaultAsync(e =>
+            //    e.NombreUs == pNombre && e.ContraUs == ContraEncrypt);
             var user = await _context.Usuarios.SingleOrDefaultAsync(e =>
-                e.NombreUs == pNombre && e.ContraUs == ContraEncrypt);
+                e.NombreUs == pNombre && e.ContraUs == pContra);
             if (user == null)
             {
                 return NotFound();
