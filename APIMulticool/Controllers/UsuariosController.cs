@@ -11,7 +11,7 @@ using APIMulticool.ModelsDTO;
 
 namespace APIMulticool.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class UsuariosController : ControllerBase
     {
@@ -28,10 +28,10 @@ namespace APIMulticool.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Usuario>>> GetUsuarios()
         {
-          if (_context.Usuarios == null)
-          {
-              return NotFound();
-          }
+            if (_context.Usuarios == null)
+            {
+                return NotFound();
+            }
             return await _context.Usuarios.ToListAsync();
         }
 
@@ -39,10 +39,10 @@ namespace APIMulticool.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Usuario>> GetUsuario(int id)
         {
-          if (_context.Usuarios == null)
-          {
-              return NotFound();
-          }
+            if (_context.Usuarios == null)
+            {
+                return NotFound();
+            }
             var usuario = await _context.Usuarios.FindAsync(id);
 
             if (usuario == null)
@@ -53,12 +53,14 @@ namespace APIMulticool.Controllers
             return usuario;
         }
 
-        [HttpGet("ValidateUserLogin")]
+        //[HttpGet("ValidateUserLogin")]
+        [HttpGet("{pNombre}/{pContra}")]
         public async Task<ActionResult<Usuario>> ValidateUserLogin(string pNombre, string pContra)
         {
-            //string ContraEncrypt = MyEncrypt.EncriptarEnUnSentido(pContra);
-            //var user = await _context.Usuarios.SingleOrDefaultAsync(e =>
-            //    e.NombreUs == pNombre && e.ContraUs == ContraEncrypt);
+            //var pContra = "";
+            //string ContraEncrypt = MyEncrypt.EncriptarEnUnSentido("contraus1");
+            ////var user = _context.Usuarios.SingleOrDefaultAsync(e =>
+            ////    e.NombreUs == pNombre && e.ContraUs == ContraEncrypt);
             var user = await _context.Usuarios.SingleOrDefaultAsync(e =>
                 e.NombreUs == pNombre && e.ContraUs == pContra);
             if (user == null)
@@ -149,7 +151,7 @@ namespace APIMulticool.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok();
         }
 
         // POST: api/Usuarios
