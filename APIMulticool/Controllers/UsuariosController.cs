@@ -8,11 +8,14 @@ using Microsoft.EntityFrameworkCore;
 using APIMulticool.Models;
 using APIMulticool.Tools;
 using APIMulticool.ModelsDTO;
+using APIMulticool.Attributes;
 
 namespace APIMulticool.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    //[Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [ApiController]
+    //[ApiKey]
     public class UsuariosController : ControllerBase
     {
         private readonly MulticoolDBContext _context;
@@ -53,8 +56,8 @@ namespace APIMulticool.Controllers
             return usuario;
         }
 
-        //[HttpGet("ValidateUserLogin")]
-        [HttpGet("{pNombre}/{pContra}")]
+        //[HttpGet("{pNombre}/{pContra}")]
+        [HttpGet("ValidateUserLogin")]
         public async Task<ActionResult<Usuario>> ValidateUserLogin(string pNombre, string pContra)
         {
             //var pContra = "";
@@ -75,6 +78,7 @@ namespace APIMulticool.Controllers
         public ActionResult<IEnumerable<UsuarioDTO>> GetUserData(string nombre)
         {
             var query = (from u in _context.Usuarios
+                         join tu in _context.TipoUsuarios on u.FktipoUsuario equals tu.Idtu
                          where u.NombreUs == nombre
                          select new
                          {
@@ -105,23 +109,22 @@ namespace APIMulticool.Controllers
         }
 
         // PUT: api/Usuarios/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUsuario(int id, Usuario usuario)
+        public async Task<IActionResult> PutUsuario(int id, UsuarioDTO usuario)
         {
             if (id != usuario.Idus)
             {
                 return BadRequest();
             }
 
-            string contra = "";
+            string Contra = "";
             if (usuario.ContraUs.Length <= 60)
             {
-                contra = MyEncrypt.EncriptarEnUnSentido(usuario.ContraUs);
+                Contra = MyEncrypt.EncriptarEnUnSentido(usuario.ContraUs);
             }
             else
             {
-                contra = usuario.ContraUs;
+                Contra = usuario.ContraUs;
             }
 
             Usuario UsuarioNuevo = new()
@@ -130,10 +133,13 @@ namespace APIMulticool.Controllers
                 NombreUs = usuario.NombreUs,
                 ContraUs = usuario.ContraUs,
                 FktipoUsuario = usuario.FktipoUsuario,
-                EstadoUs = usuario.EstadoUs
+                EstadoUs = usuario.EstadoUs,
+                FktipoUsuarioNavigation = null,
+                CodigoRecuperacions = null,
+                Pedidos = null
             };
 
-            _context.Entry(usuario).State = EntityState.Modified;
+            _context.Entry(UsuarioNuevo).State = EntityState.Modified;
 
             try
             {
@@ -155,17 +161,17 @@ namespace APIMulticool.Controllers
         }
 
         // POST: api/Usuarios
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Usuario>> PostUsuario(Usuario usuario)
         {
-          if (_context.Usuarios == null)
-          {
-              return Problem("Entity set 'MulticoolDBContext.Usuarios'  is null.");
-          }
+            if (_context.Usuarios == null)
+            {
+                return Problem("Entity set 'MulticoolDBContext.Usuarios'  is null.");
+            }
+            string contraEncrypt = MyEncrypt.EncriptarEnUnSentido(usuario.ContraUs);
+            usuario.ContraUs = contraEncrypt;
             _context.Usuarios.Add(usuario);
             await _context.SaveChangesAsync();
-
             return CreatedAtAction("GetUsuario", new { id = usuario.Idus }, usuario);
         }
 

@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using APIMulticool.Models;
+using APIMulticool.Attributes;
 
 namespace APIMulticool.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ApiKey]
     public class CodigoRecuperacionsController : ControllerBase
     {
         private readonly MulticoolDBContext _context;

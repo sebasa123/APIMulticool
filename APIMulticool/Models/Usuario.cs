@@ -17,8 +17,8 @@ namespace APIMulticool.Models
         public int FktipoUsuario { get; set; }
         public bool EstadoUs { get; set; }
 
-        public virtual TipoUsuario FktipoUsuarioNavigation { get; set; } = null!;
-        public virtual ICollection<CodigoRecuperacion> CodigoRecuperacions { get; set; }
-        public virtual ICollection<Pedido> Pedidos { get; set; }
+        public virtual TipoUsuario? FktipoUsuarioNavigation { get; set; } = null!;
+        public virtual ICollection<CodigoRecuperacion>? CodigoRecuperacions { get; set; }
+        public virtual ICollection<Pedido>? Pedidos { get; set; }
     }
 }

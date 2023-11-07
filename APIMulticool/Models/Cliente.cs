@@ -17,6 +17,6 @@ namespace APIMulticool.Models
         public string DireccionCli { get; set; } = null!;
         public bool EstadoCli { get; set; }
 
-        public virtual ICollection<Pedido> Pedidos { get; set; }
+        public virtual ICollection<Pedido>? Pedidos { get; set; }
     }
 }

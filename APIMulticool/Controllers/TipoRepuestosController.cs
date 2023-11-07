@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using APIMulticool.Models;
+using APIMulticool.Attributes;
 
 namespace APIMulticool.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ApiKey]
     public class TipoRepuestosController : ControllerBase
     {
         private readonly MulticoolDBContext _context;
@@ -59,7 +61,13 @@ namespace APIMulticool.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(tipoRepuesto).State = EntityState.Modified;
+            TipoRepuesto TipoRepNuevo = new()
+            {
+                Idtr = tipoRepuesto.Idtr,
+                DescripcionTr = tipoRepuesto.DescripcionTr
+            };
+
+            _context.Entry(TipoRepNuevo).State = EntityState.Modified;
 
             try
             {

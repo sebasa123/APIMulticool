@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using APIMulticool.Models;
+using APIMulticool.Attributes;
 
 namespace APIMulticool.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ApiKey]
     public class PedidosController : ControllerBase
     {
         private readonly MulticoolDBContext _context;
@@ -49,6 +51,18 @@ namespace APIMulticool.Controllers
             return pedido;
         }
 
+        [HttpGet("GetPedidoListByCliente")]
+        public async Task<ActionResult<IEnumerable<Pedido>>> GetPedidoListByCliente(int pIDCli)
+        {
+            var pedidoList = await _context.Pedidos.Where(c => c.Fkcli == pIDCli).ToListAsync();
+            if (pedidoList == null)
+            {
+                return NotFound();
+            }
+            return pedidoList;
+        }
+
+
         // PUT: api/Pedidos/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -59,7 +73,23 @@ namespace APIMulticool.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(pedido).State = EntityState.Modified;
+            Pedido PedNuevo = new()
+            {
+                Idped = pedido.Idped,
+                DecripcionPed = pedido.DecripcionPed,
+                FechaPed = pedido.FechaPed,
+                EstadoPed = pedido.EstadoPed,
+                Fkcli = pedido.Fkcli,
+                Fkprod = pedido.Fkprod,
+                Fkrep = pedido.Fkrep,
+                Fkus = pedido.Fkus,
+                FkcliNavigation = null,
+                FkprodNavigation = null,
+                FkrepNavigation = null,
+                FkusNavigation = null
+            };
+
+            _context.Entry(PedNuevo).State = EntityState.Modified;
 
             try
             {

@@ -14,9 +14,9 @@ namespace APIMulticool.Models
         public int Fkprod { get; set; }
         public bool EstadoPed { get; set; }
 
-        public virtual Cliente FkcliNavigation { get; set; } = null!;
-        public virtual Producto FkprodNavigation { get; set; } = null!;
-        public virtual Repuesto FkrepNavigation { get; set; } = null!;
-        public virtual Usuario FkusNavigation { get; set; } = null!;
+        public virtual Cliente?FkcliNavigation { get; set; } = null!;
+        public virtual Producto? FkprodNavigation { get; set; } = null!;
+        public virtual Repuesto? FkrepNavigation { get; set; } = null!;
+        public virtual Usuario? FkusNavigation { get; set; } = null!;
     }
 }

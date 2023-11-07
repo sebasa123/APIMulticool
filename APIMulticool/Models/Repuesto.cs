@@ -16,6 +16,6 @@ namespace APIMulticool.Models
         public int FktipoRep { get; set; }
         public int Fkherramientas { get; set; }
 
-        public virtual ICollection<Pedido> Pedidos { get; set; }
+        public virtual ICollection<Pedido>? Pedidos { get; set; }
     }
 }
