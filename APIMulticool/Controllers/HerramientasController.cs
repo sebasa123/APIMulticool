@@ -12,7 +12,7 @@ namespace APIMulticool.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [ApiKey]
+    //[ApiKey]
     public class HerramientasController : ControllerBase
     {
         private readonly MulticoolDBContext _context;
