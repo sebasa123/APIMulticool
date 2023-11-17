@@ -52,9 +52,9 @@ namespace APIMulticool.Controllers
         }
 
         [HttpGet("GetPedidoListByCliente")]
-        public async Task<ActionResult<IEnumerable<Pedido>>> GetPedidoListByCliente(int pIDCli)
+        public async Task<ActionResult<IEnumerable<Pedido>>> GetPedidoListByCliente(int pCliente)
         {
-            var pedidoList = await _context.Pedidos.Where(c => c.Fkcli == pIDCli).ToListAsync();
+            var pedidoList = await _context.Pedidos.Where(p => p.Fkcli == pCliente).ToListAsync();
             if (pedidoList == null)
             {
                 return NotFound();

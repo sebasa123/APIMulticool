@@ -38,6 +38,17 @@ namespace APIMulticool.Controllers
             return await _context.Usuarios.ToListAsync();
         }
 
+        [HttpGet("GetUsuarioListByNombre")]
+        public async Task<ActionResult<IEnumerable<Usuario>>> GetUsuarioListByNombre(string pNombre)
+        {
+            var usuarioList = await _context.Usuarios.Where(u => u.NombreUs == pNombre).ToListAsync();
+            if (usuarioList == null)
+            {
+                return NotFound();
+            }
+            return usuarioList;
+        }
+
         // GET: api/Usuarios/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Usuario>> GetUsuario(int id)
@@ -161,7 +172,8 @@ namespace APIMulticool.Controllers
         }
 
         // POST: api/Usuarios
-        [HttpPost]
+        //[HttpPost]
+        [HttpPost("PostUsuario")]
         public async Task<ActionResult<Usuario>> PostUsuario(Usuario usuario)
         {
             if (_context.Usuarios == null)

@@ -7,6 +7,6 @@
         public string ContraUs { get; set; } = null!;
         public int FktipoUsuario { get; set; }
         public bool EstadoUs { get; set; }
-        public string NombreTU { get; set; } = null!;
+        //public string NombreTU { get; set; } = null!;
     }
 }

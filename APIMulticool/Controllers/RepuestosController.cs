@@ -33,6 +33,17 @@ namespace APIMulticool.Controllers
             return await _context.Repuestos.ToListAsync();
         }
 
+        [HttpGet("GetRepuestoListByNombre")]
+        public async Task<ActionResult<IEnumerable<Repuesto>>> GetRepuestoListByNombre(string pNombre)
+        {
+            var repList = await _context.Repuestos.Where(r => r.DescripcionRep == pNombre).ToListAsync();
+            if (repList == null)
+            {
+                return NotFound();
+            }
+            return repList;
+        }
+
         // GET: api/Repuestos/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Repuesto>> GetRepuesto(int id)

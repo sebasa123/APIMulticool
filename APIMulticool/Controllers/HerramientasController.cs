@@ -33,6 +33,17 @@ namespace APIMulticool.Controllers
             return await _context.Herramienta.ToListAsync();
         }
 
+        [HttpGet("GetHerramientaListByNombre")]
+        public async Task<ActionResult<IEnumerable<Herramientum>>> GetHerramientaListByNombre(string pNombre)
+        {
+            var herList = await _context.Herramienta.Where(h => h.NombreHer == pNombre).ToListAsync();
+            if (herList == null)
+            {
+                return NotFound();
+            }
+            return herList;
+        }
+
         // GET: api/Herramientas/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Herramientum>> GetHerramientum(int id)
