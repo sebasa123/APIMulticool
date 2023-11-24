@@ -64,7 +64,7 @@ namespace APIMulticool.Controllers
 
         // PUT: api/Productos/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+        [HttpPut("PutProducto/{id}")]
         public async Task<IActionResult> PutProducto(int id, Producto producto)
         {
             if (id != producto.Idprod)
@@ -105,7 +105,7 @@ namespace APIMulticool.Controllers
 
         // POST: api/Productos
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
+        [HttpPost("PostProducto")]
         public async Task<ActionResult<Producto>> PostProducto(Producto producto)
         {
           if (_context.Productos == null)
@@ -119,7 +119,7 @@ namespace APIMulticool.Controllers
         }
 
         // DELETE: api/Productos/5
-        [HttpDelete("{id}")]
+        [HttpDelete("DeleteProducto/{id}")]
         public async Task<IActionResult> DeleteProducto(int id)
         {
             if (_context.Productos == null)

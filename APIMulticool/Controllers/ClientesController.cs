@@ -64,7 +64,7 @@ namespace APIMulticool.Controllers
 
         // PUT: api/Clientes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+        [HttpPut("PutCliente/{id}")]
         public async Task<IActionResult> PutCliente(int id, Cliente cliente)
         {
             if (id != cliente.Idcli)
@@ -106,7 +106,7 @@ namespace APIMulticool.Controllers
 
         // POST: api/Clientes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
+        [HttpPost("PostCliente")]
         public async Task<ActionResult<Cliente>> PostCliente(Cliente cliente)
         {
           if (_context.Clientes == null)
@@ -120,7 +120,7 @@ namespace APIMulticool.Controllers
         }
 
         // DELETE: api/Clientes/5
-        [HttpDelete("{id}")]
+        [HttpDelete("DeleteCliente/{id}")]
         public async Task<IActionResult> DeleteCliente(int id)
         {
             if (_context.Clientes == null)

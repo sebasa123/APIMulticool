@@ -64,7 +64,7 @@ namespace APIMulticool.Controllers
 
         // PUT: api/Repuestos/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+        [HttpPut("PutRepuesto/{id}")]
         public async Task<IActionResult> PutRepuesto(int id, Repuesto repuesto)
         {
             if (id != repuesto.Idrep)
@@ -105,7 +105,7 @@ namespace APIMulticool.Controllers
 
         // POST: api/Repuestos
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
+        [HttpPost("PostRepuesto")]
         public async Task<ActionResult<Repuesto>> PostRepuesto(Repuesto repuesto)
         {
           if (_context.Repuestos == null)
@@ -119,7 +119,7 @@ namespace APIMulticool.Controllers
         }
 
         // DELETE: api/Repuestos/5
-        [HttpDelete("{id}")]
+        [HttpDelete("DeleteRepuesto/{id}")]
         public async Task<IActionResult> DeleteRepuesto(int id)
         {
             if (_context.Repuestos == null)

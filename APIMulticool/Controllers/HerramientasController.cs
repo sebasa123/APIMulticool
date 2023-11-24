@@ -64,7 +64,7 @@ namespace APIMulticool.Controllers
 
         // PUT: api/Herramientas/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+        [HttpPut("PutHerramientum/{id}")]
         public async Task<IActionResult> PutHerramientum(int id, Herramientum herramientum)
         {
             if (id != herramientum.Idher)
@@ -104,7 +104,7 @@ namespace APIMulticool.Controllers
 
         // POST: api/Herramientas
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
+        [HttpPost("PostHerramientum")]
         public async Task<ActionResult<Herramientum>> PostHerramientum(Herramientum herramientum)
         {
           if (_context.Herramienta == null)
@@ -118,7 +118,7 @@ namespace APIMulticool.Controllers
         }
 
         // DELETE: api/Herramientas/5
-        [HttpDelete("{id}")]
+        [HttpDelete("DeleteHerramientum/{id}")]
         public async Task<IActionResult> DeleteHerramientum(int id)
         {
             if (_context.Herramienta == null)

@@ -64,7 +64,7 @@ namespace APIMulticool.Controllers
 
         // PUT: api/TipoUsuarios/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+        [HttpPut("PutTipoUsuario/{id}")]
         public async Task<IActionResult> PutTipoUsuario(int id, TipoUsuario tipoUsuario)
         {
             if (id != tipoUsuario.Idtu)
@@ -101,7 +101,7 @@ namespace APIMulticool.Controllers
 
         // POST: api/TipoUsuarios
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
+        [HttpPost("PostTipoUsuario")]
         public async Task<ActionResult<TipoUsuario>> PostTipoUsuario(TipoUsuario tipoUsuario)
         {
           if (_context.TipoUsuarios == null)
@@ -115,7 +115,7 @@ namespace APIMulticool.Controllers
         }
 
         // DELETE: api/TipoUsuarios/5
-        [HttpDelete("{id}")]
+        [HttpDelete("DeleteTipoUsuario/{id}")]
         public async Task<IActionResult> DeleteTipoUsuario(int id)
         {
             if (_context.TipoUsuarios == null)

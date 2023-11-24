@@ -120,7 +120,8 @@ namespace APIMulticool.Controllers
         }
 
         // PUT: api/Usuarios/5
-        [HttpPut("{id}")]
+        //[HttpPut("{id}")]
+        [HttpPut("PutUsuario/{id}")]
         public async Task<IActionResult> PutUsuario(int id, UsuarioDTO usuario)
         {
             if (id != usuario.Idus)
@@ -188,7 +189,8 @@ namespace APIMulticool.Controllers
         }
 
         // DELETE: api/Usuarios/5
-        [HttpDelete("{id}")]
+        //[HttpDelete("{id}")]
+        [HttpDelete("DeleteUsuario/{id}")]
         public async Task<IActionResult> DeleteUsuario(int id)
         {
             if (_context.Usuarios == null)

@@ -65,7 +65,7 @@ namespace APIMulticool.Controllers
 
         // PUT: api/Pedidos/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+        [HttpPut("PutPedido/{id}")]
         public async Task<IActionResult> PutPedido(int id, Pedido pedido)
         {
             if (id != pedido.Idped)
@@ -112,7 +112,7 @@ namespace APIMulticool.Controllers
 
         // POST: api/Pedidos
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
+        [HttpPost("PostPedido")]
         public async Task<ActionResult<Pedido>> PostPedido(Pedido pedido)
         {
           if (_context.Pedidos == null)
@@ -126,7 +126,7 @@ namespace APIMulticool.Controllers
         }
 
         // DELETE: api/Pedidos/5
-        [HttpDelete("{id}")]
+        [HttpDelete("DeletePedido/{id}")]
         public async Task<IActionResult> DeletePedido(int id)
         {
             if (_context.Pedidos == null)
