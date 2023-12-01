@@ -190,6 +190,18 @@ namespace APIMulticool.Models
                 entity.Property(e => e.Fkherramientas).HasColumnName("FKHerramientas");
 
                 entity.Property(e => e.FktipoRep).HasColumnName("FKTipoRep");
+
+                entity.HasOne(d => d.FkherramientasNavigation)
+                    .WithMany(p => p.Repuestos)
+                    .HasForeignKey(d => d.Fkherramientas)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Repuesto__FKHerr__35BCFE0A");
+
+                entity.HasOne(d => d.FktipoRepNavigation)
+                    .WithMany(p => p.Repuestos)
+                    .HasForeignKey(d => d.FktipoRep)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Repuesto__FKTipo__34C8D9D1");
             });
 
             modelBuilder.Entity<TipoProducto>(entity =>

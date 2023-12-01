@@ -105,7 +105,7 @@ namespace APIMulticool.Controllers
 
         // POST: api/CodigoRecuperacions
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
+        [HttpPost("PostCodigoRecuperacion")]
         public async Task<ActionResult<CodigoRecuperacion>> PostCodigoRecuperacion(CodigoRecuperacion codigoRecuperacion)
         {
           if (_context.CodigoRecuperacions == null)

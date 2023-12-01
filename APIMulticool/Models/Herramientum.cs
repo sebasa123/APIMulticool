@@ -9,6 +9,7 @@ namespace APIMulticool.Models
         {
             Repuestos = new HashSet<Repuesto>();
         }
+
         public int Idher { get; set; }
         public string NombreHer { get; set; } = null!;
         public int NumeroHer { get; set; }

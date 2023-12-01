@@ -12,6 +12,6 @@ namespace APIMulticool.Models
         public string Email { get; set; } = null!;
         public int Fkusuario { get; set; }
 
-        public virtual Usuario FkusuarioNavigation { get; set; } = null!;
+        public virtual Usuario? FkusuarioNavigation { get; set; } = null!;
     }
 }

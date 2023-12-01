@@ -13,6 +13,6 @@ namespace APIMulticool.Models
         public int Idtp { get; set; }
         public string NombreTp { get; set; } = null!;
 
-        public virtual ICollection<Producto> Productos { get; set; }
+        public virtual ICollection<Producto>? Productos { get; set; }
     }
 }
