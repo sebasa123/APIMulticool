@@ -52,17 +52,36 @@ namespace APIMulticool.Controllers
         }
 
         // GET: api/RecoveryCodes/ValidateCode
+        //[HttpGet("ValidateCode")]
+        //public async Task<ActionResult<CodigoRecuperacion>> ValidateCode(string pEmail, string pCodigo)
+        //{
+        //    if (_context.CodigoRecuperacions == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    var recoveryCode = await _context.CodigoRecuperacions.
+        //        SingleOrDefaultAsync(e => e.Email == pEmail
+        //        && e.CodigoRec == pCodigo &&
+        //        e.EstadoCr == false);
+
+        //    if (recoveryCode == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return recoveryCode;
+        //}
+
         [HttpGet("ValidateCode")]
-        public async Task<ActionResult<CodigoRecuperacion>> ValidateCode(string pEmail, string pCodigo)
+        public async Task<ActionResult<CodigoRecuperacion>> ValidateCode(string pCodigo)
         {
             if (_context.CodigoRecuperacions == null)
             {
                 return NotFound();
             }
             var recoveryCode = await _context.CodigoRecuperacions.
-                SingleOrDefaultAsync(e => e.Email == pEmail
-                && e.CodigoRec == pCodigo &&
-                e.EstadoCr == false);
+                SingleOrDefaultAsync(e => e.CodigoRec == pCodigo &&
+                e.EstadoCr == true);
 
             if (recoveryCode == null)
             {
